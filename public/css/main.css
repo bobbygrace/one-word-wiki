@@ -92,7 +92,7 @@ html {
 }
 
 .container {
-  margin: 10em auto;
+  margin: 8em auto 4em;
   max-width: 900px;
   padding: 2em;
   text-align: center;
