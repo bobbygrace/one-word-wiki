@@ -1,3 +1,4 @@
-AppView = require './src/coffee/appView.coffee'
+AppView   = require './src/coffee/appView.coffee'
+WikiModel = require './src/coffee/wikiModel.coffee'
 
-appview = new AppView().render()
+new AppView({ model: new WikiModel }).render()

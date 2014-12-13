@@ -5,22 +5,22 @@ Backbone.$ = $
 
 class AppView extends Backbone.View
 
-  constructor: ->
-    @fEditing = false
-    @setElement $(".js-app")
-
   events:
     "click .js-edit": "edit"
     "submit .js-form": "save"
     "click .js-save": "save"
     "click .js-cancel": "cancel"
 
+  initialize: ->
+    @fEditing = false
+    @setElement $(".js-app")
+    @listenTo @model, "change:word", @renderWord
+
   render: ->
-    word = @getWord()
 
     html = render ->
       div ".js-show-word", ->
-        p ".word.js-word", word
+        p ".word.js-word"
         a ".js-edit", "href": "#", "Edit"
       div ".hidden.js-hide-word", ->
         form ".js-form", ->
@@ -31,10 +31,13 @@ class AppView extends Backbone.View
 
     @$el.html html
 
+    @renderWord()
+
     @
 
-  getWord: ->
-    "Taco"
+  renderWord: ->
+    @$(".js-word").text @model.get("word")
+    @
 
   renderEditState: ->
     @$(".js-show-word").toggleClass("hidden", @fEditing)
@@ -42,9 +45,6 @@ class AppView extends Backbone.View
     if @fEditing
       @$(".js-input").focus()
       @$(".js-input")[0].select()
-    @
-
-  renderWord: ->
     @
 
   edit: (e) ->
@@ -56,12 +56,7 @@ class AppView extends Backbone.View
   save: (e) ->
     e.preventDefault()
     value = @$(".js-input").val().trim()
-
-    $.ajax
-      type: 'POST'
-      url: '/'
-      data: JSON.stringify({ word: value })
-      contentType: 'application/json'
+    @model.setWord(value)
 
     @fEditing = false
     @renderEditState()
