@@ -18,6 +18,7 @@
     "zeptojs": "~1.1.4",
     "teacup": "~1.0.0",
     "backbone": "~1.1.2",
-    "body-parser": "~1.10.0"
+    "body-parser": "~1.10.0",
+    "st": "~0.5.2"
   }
 }
