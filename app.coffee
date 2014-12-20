@@ -35,11 +35,11 @@ app.use bodyParser.json()
 
 # Models
 
-Word = bookshelf.Model.extend
+Entry = bookshelf.Model.extend
   tableName: "Words"
 
 Words = bookshelf.Collection.extend
-  model: Word
+  model: Entry
 
 words = new Words
 words.fetch()
@@ -55,8 +55,8 @@ app.post "/word", (req, res, next) ->
   body = req.body
   word = body.word
   dateAdded = (new Date()).toJSON()
-  word = Word.forge({word, dateAdded}).save()
-  words.add word
+  word = new Entry({word, dateAdded})
+  words.create(word)
 
 
 # Static Content

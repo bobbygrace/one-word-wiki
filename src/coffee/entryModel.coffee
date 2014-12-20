@@ -1,9 +1,8 @@
 $ = require 'zeptojs'
-_ = require 'underscore'
 Backbone = require 'backbone'
 Backbone.$ = $
 
-class WikiModel extends Backbone.Model
+class EntryModel extends Backbone.Model
 
   fetchWord: ->
     $.ajax
@@ -25,4 +24,4 @@ class WikiModel extends Backbone.Model
   setWord: (word) ->
     @set({word: word})
 
-module.exports = WikiModel
+module.exports = EntryModel

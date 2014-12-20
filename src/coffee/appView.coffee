@@ -1,5 +1,4 @@
 $ = require 'zeptojs'
-_ = require 'underscore'
 Backbone = require 'backbone'
 Backbone.$ = $
 { render, div, form, input, text, p, span, a } = require 'teacup'
