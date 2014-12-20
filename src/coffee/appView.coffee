@@ -1,7 +1,8 @@
 $ = require 'zeptojs'
-{ render, div, form, input, text, p, span, a } = require 'teacup'
+_ = require 'underscore'
 Backbone = require 'backbone'
 Backbone.$ = $
+{ render, div, form, input, text, p, span, a } = require 'teacup'
 
 class AppView extends Backbone.View
 
@@ -25,13 +26,12 @@ class AppView extends Backbone.View
       div ".hidden.js-hide-word", ->
         form ".js-form", ->
           input ".js-input", "type": "text"
-        a ".js-save", "href": "#", "Save"
-        a ".js-cancel", "href": "#", "Cancel"
+          input ".js-save", "type": "submit", "value": "Save"
+          input ".js-cancel", "type": "submit", "value": "Cancel"
       p ".quiet", "This is One Word Wiki, a wiki with only one word to edit."
 
     @$el.html html
-
-    @renderWord()
+    @model.fetchWord()
 
     @
 
@@ -56,8 +56,8 @@ class AppView extends Backbone.View
   save: (e) ->
     e.preventDefault()
     value = @$(".js-input").val().trim()
-    @model.setWord(value)
-
+    @model.saveWord(value)
+    @$(".js-input").val("")
     @fEditing = false
     @renderEditState()
     false
