@@ -21,13 +21,15 @@ class AppView extends Backbone.View
     html = render ->
       div ".js-show-word", ->
         p ".word.js-word"
-        a ".js-edit", "href": "#", "Edit"
+        a ".edit-button.js-edit", "href": "#", "Edit"
       div ".hidden.js-hide-word", ->
         form ".js-form", ->
-          input ".js-input", "type": "text"
-          input ".js-save", "type": "submit", "value": "Save"
-          input ".js-cancel", "type": "submit", "value": "Cancel"
-      p ".quiet", "This is One Word Wiki, a wiki with only one word to edit."
+          input ".edit-form-text.js-input", "type": "text"
+          input ".edit-form-submit.edit-form-submit--primary.js-save", "type": "submit", "value": "Save"
+          input ".edit-form-submit.js-cancel", "type": "submit", "value": "Cancel"
+      p ".footer", ->
+        text "This is One Word Wiki, a wiki with only one word to edit. Created by "
+        a "href": "http://bobbygrace.info", "Bobby Grace."
 
     @$el.html html
     @model.fetchWord()

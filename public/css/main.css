@@ -10,6 +10,7 @@
 
 html {
     color: hsl(0, 0%, 20%);
+    font-family: "ff-more-web-pro", "ff-more-web-pro-wide", "kinesis-pro-3", serif;
     font-size: 1em;
     line-height: 1.4;
 }
@@ -84,30 +85,115 @@ textarea {
    ========================================================================== */
 
 
-/* Typography and Layout */
+/* Layout / Reset */
 
 html {
   font-size: 16px;
   text-align; center;
 }
 
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+a {
+  color: hsl(220, 30%, 40%);
+}
+
+
 .container {
-  margin: 8em auto 4em;
+  margin: 7em auto 4em;
   max-width: 900px;
   padding: 2em;
   text-align: center;
 }
 
+
+/* Word */
+
 .word {
-  font-size: 2em;
-  margin: 0 0 .5em;
+  font-size: 3em;
+  margin: 1em 0 .5em;
 }
 
-.quiet {
-  color: hsl(0, 0%, 55%);
+  .edit-button {
+    background: hsl(0, 0%, 88%);
+    color: hsl(0, 0%, 20%);
+    font-family: "ff-meta-web-pro", sans-serif;
+    padding: .1em 1em;
+    border-radius: 3em;
+    text-decoration: none;
+  }
+
+    .edit-button:hover {
+      background: hsl(0, 0%, 84%);
+      color: hsl(0, 0%, 0%);
+      text-decoration: underline;
+    }
+
+
+/* Edit Form */
+
+.edit-form-text {
+  background: hsl(0, 0%, 99%);
+  border: 1px solid hsl(0, 0%, 92%);
+  border-radius: .3em;
+  box-sizing: border-box;
+  font-size: 3em;
+  max-width: 100%;
+  padding: 1em;
+  text-align: center;
 }
 
+  .edit-form-text:hover,
+  .edit-form-text:focus {
+    border: 1px solid hsl(0, 0%, 84%);
+  }
 
+.edit-form-submit {
+  background: linear-gradient(hsl(0, 0%, 92%), hsl(0, 0%, 84%));
+  box-shadow: 0 1px 0 hsl(0, 0%, 40%);
+  border: 0;
+  border-radius: .3em;
+  color: hsl(0, 0%, 30%);
+  display: inline-block;
+  font-family: "ff-meta-web-pro", sans-serif;
+  font-weight: bold;
+  padding: .5em 1em;
+  margin: 1em .5em;
+  width: 120px;
+}
+
+  .edit-form-submit:hover,
+  .edit-form-submit:focus {
+    background: linear-gradient(hsl(0, 0%, 88%), hsl(0, 0%, 80%));
+  }
+
+  .edit-form-submit--primary {
+    background: linear-gradient(hsl(120, 40%, 44%), hsl(120, 40%, 36%));
+    color: #fff;
+    width: 160px;
+  }
+
+    .edit-form-submit--primary:hover,
+    .edit-form-submit--primary:focus {
+      background: linear-gradient(hsl(120, 40%, 36%), hsl(120, 40%, 28%));
+    }
+
+
+/* Footer */
+
+.footer {
+  bottom: 0;
+  box-sizing: border-box;
+  color: hsl(0, 0%, 40%);
+  left: 0;
+  padding: 1em;
+  position: fixed;
+  right: 0;
+  width: 100%;
+}
 
 
 
