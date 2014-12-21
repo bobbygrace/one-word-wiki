@@ -103,7 +103,7 @@ a {
 
 
 .container {
-  margin: 7em auto 4em;
+  margin: 3em auto 4em;
   max-width: 900px;
   padding: 2em;
   text-align: center;
@@ -113,15 +113,18 @@ a {
 /* Word */
 
 .word {
-  font-size: 3em;
-  margin: 1em 0 .5em;
+  border: 1px solid transparent;
+  font-size: 2em;
+  line-height: 2em;
+  margin: 0 0 .5em;
 }
 
   .edit-button {
     background: hsl(0, 0%, 88%);
     color: hsl(0, 0%, 20%);
+    display: inline-block;
     font-family: "ff-meta-web-pro", sans-serif;
-    padding: .1em 1em;
+    padding: .2em 1em;
     border-radius: 3em;
     text-decoration: none;
   }
@@ -140,15 +143,16 @@ a {
   border: 1px solid hsl(0, 0%, 92%);
   border-radius: .3em;
   box-sizing: border-box;
-  font-size: 3em;
-  max-width: 100%;
+  font-size: 2em;
+  height: 2em;
+  width: 100%;
   padding: 1em;
   text-align: center;
 }
 
   .edit-form-text:hover,
   .edit-form-text:focus {
-    border: 1px solid hsl(0, 0%, 84%);
+    border-color: hsl(0, 0%, 84%);
   }
 
 .edit-form-submit {
@@ -185,14 +189,8 @@ a {
 /* Footer */
 
 .footer {
-  bottom: 0;
   box-sizing: border-box;
-  color: hsl(0, 0%, 40%);
-  left: 0;
-  padding: 1em;
-  position: fixed;
-  right: 0;
-  width: 100%;
+  padding: 2em 1em;
 }
 
 
@@ -279,6 +277,34 @@ a {
    These examples override the primary ('mobile first') styles.
    Modify as content requires.
    ========================================================================== */
+
+@media only screen and (min-height: 600px) {
+  /* Style adjustments for viewports that meet the condition */
+
+  .container {
+    margin-top: 7em;
+  }
+
+  .word {
+    font-size: 3em;
+    line-height: 3em;
+  }
+
+  .edit-form-text {
+    font-size: 3em;
+    height: 3em;
+  }
+
+  .footer {
+    bottom: 0;
+    box-sizing: border-box;
+    left: 0;
+    position: fixed;
+    right: 0;
+    width: 100%;
+  }
+
+}
 
 @media only screen and (min-width: 35em) {
   /* Style adjustments for viewports that meet the condition */
