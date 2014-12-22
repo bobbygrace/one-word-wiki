@@ -2,6 +2,7 @@ $ = require 'zeptojs'
 Backbone = require 'backbone'
 Backbone.$ = $
 { render, div, form, input, text, p, span, a } = require 'teacup'
+socket = require('socket.io-client')("http://localhost:8080")
 
 class AppView extends Backbone.View
 
@@ -15,6 +16,8 @@ class AppView extends Backbone.View
     @fEditing = false
     @setElement $(".js-app")
     @listenTo @model, "change:word", @renderWord
+    @listenTo socket, "word change", (word) =>
+      @model.setWord(word)
 
   render: ->
 

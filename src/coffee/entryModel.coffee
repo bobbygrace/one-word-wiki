@@ -1,6 +1,7 @@
 $ = require 'zeptojs'
 Backbone = require 'backbone'
 Backbone.$ = $
+socket = require('socket.io-client')("http://localhost:8080")
 
 class EntryModel extends Backbone.Model
 
@@ -18,6 +19,8 @@ class EntryModel extends Backbone.Model
       url: '/word'
       data: JSON.stringify({ word })
       contentType: 'application/json'
+
+    socket.emit("word change", word)
 
     @setWord(word)
 

@@ -2,6 +2,11 @@ path = require 'path'
 express = require 'express'
 bodyParser = require 'body-parser'
 st = require 'st'
+app = express()
+http = require('http').Server(app)
+io = require('socket.io')(http)
+
+app.use bodyParser.json()
 
 dbFile = path.join __dirname, "db.sqlite"
 dbConfig = {
@@ -14,7 +19,7 @@ knex = require('knex')(dbConfig)
 bookshelf = require('bookshelf')(knex)
 
 
-# create a schema
+# Create a schema, if needed
 
 createTable = ->
   bookshelf.knex.schema.createTable "Words", (table) ->
@@ -27,10 +32,12 @@ bookshelf.knex.schema.hasTable("Words").then (exists) ->
     createTable()
 
 
-# Express things
+# Sockets
 
-app = express()
-app.use bodyParser.json()
+io.on "connection", (socket) ->
+
+  socket.on "word change", (word) ->
+    io.emit "word change", word
 
 
 # Models
@@ -71,4 +78,4 @@ app.use(mount)
 
 # Start
 
-app.listen(8080)
+http.listen(8080)
