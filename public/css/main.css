@@ -191,9 +191,17 @@ a {
 
 .footer {
   box-sizing: border-box;
+  color: hsl(0, 0%, 55%);
   padding: 2em 1em;
 }
 
+  .footer a {
+    color: hsl(220, 20%, 55%);
+  }
+
+  .footer a:hover {
+    color: hsl(220, 10%, 40%);
+  }
 
 
 
