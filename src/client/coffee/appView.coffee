@@ -2,7 +2,7 @@ $ = require 'zeptojs'
 Backbone = require 'backbone'
 Backbone.$ = $
 _ = require 'underscore'
-validateInput = require "./validator.coffee"
+validateInput = require "../../shared/coffee/validator.coffee"
 { render, div, form, input, text, p, span, a } = require 'teacup'
 socket = require('socket.io-client')("http://localhost:8080")
 

@@ -5,6 +5,7 @@ st = require 'st'
 app = express()
 http = require('http').Server(app)
 io = require('socket.io')(http)
+validateInput = require "./src/shared/coffee/validator.coffee"
 
 app.use bodyParser.json()
 
@@ -60,7 +61,7 @@ app.get "/word", (req, res, next) ->
 
 app.post "/word", (req, res, next) ->
   body = req.body
-  word = body.word
+  word = validateInput(body.word).output
   dateAdded = (new Date()).toJSON()
   word = new Entry({word, dateAdded})
   words.create(word)
