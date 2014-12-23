@@ -50,6 +50,7 @@ class AppView extends Backbone.View
     @
 
   renderWord: ->
+    document.title = "#{@model.get("word")} » Edit This Word"
     @$(".js-word").text @model.get("word")
     @
 
