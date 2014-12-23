@@ -1,6 +1,8 @@
 $ = require 'zeptojs'
 Backbone = require 'backbone'
 Backbone.$ = $
+_ = require 'underscore'
+validateInput = require "./validator.coffee"
 { render, div, form, input, text, p, span, a } = require 'teacup'
 socket = require('socket.io-client')("http://localhost:8080")
 
@@ -11,6 +13,7 @@ class AppView extends Backbone.View
     "submit .js-form": "save"
     "click .js-save": "save"
     "click .js-cancel": "cancel"
+    "keyup .js-input": "keyupEvent"
 
   initialize: ->
     @fEditing = false
@@ -28,10 +31,16 @@ class AppView extends Backbone.View
       div ".hidden.js-hide-word", ->
         form ".js-form", ->
           input ".edit-form-text.js-input", "type": "text"
+          p ".error.hidden.js-error-invalid", ->
+            span ".js-error-too-many-words.hidden", "Only one word is allowed. "
+            span ".js-error-invalid-characters.hidden", "No spaces or punctuation (except hypens) are accepted. "
+            text "Your word will be “"
+            span ".js-validated-output"
+            text "”."
           input ".edit-form-submit.edit-form-submit--primary.js-save", "type": "submit", "value": "Save"
           input ".edit-form-submit.js-cancel", "type": "submit", "value": "Cancel"
       p ".footer", ->
-        text "Edit This Word is a page with one word that anyone can edit. Created by "
+        text "Edit This Word is a web page with one word that anyone can edit. Created by "
         a "href": "http://bobbygrace.info", "Bobby Grace"
         text "."
 
@@ -50,7 +59,26 @@ class AppView extends Backbone.View
     if @fEditing
       @$(".js-input").focus()
       @$(".js-input")[0].select()
+    @renderValidationErrors()
     @
+
+  renderValidationErrors: ->
+    inputValue = @$(".js-input").val()
+    validated = validateInput(inputValue)
+
+    if (validated.errorInvalidCharacters || validated.errorTooManyWords) && !validated.errorEmptyWord
+      @$(".js-error-invalid-characters").toggleClass("hidden", !validated.errorInvalidCharacters)
+      @$(".js-error-too-many-words").toggleClass("hidden", !validated.errorTooManyWords)
+      @$(".js-validated-output").text validated.output
+
+      @$(".js-error-invalid").removeClass("hidden")
+    else
+      @$(".js-error-invalid").addClass("hidden")
+
+    @
+
+  keyupEvent: ->
+    @renderValidationErrors()
 
   edit: (e) ->
     e.preventDefault()
@@ -60,8 +88,11 @@ class AppView extends Backbone.View
 
   save: (e) ->
     e.preventDefault()
-    value = @$(".js-input").val().trim()
-    @model.saveWord(value)
+
+    inputValue = @$(".js-input").val()
+    validated = validateInput(inputValue)
+
+    @model.saveWord(validated.output)
     @$(".js-input").val("")
     @fEditing = false
     @renderEditState()
