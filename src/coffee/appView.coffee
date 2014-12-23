@@ -31,7 +31,7 @@ class AppView extends Backbone.View
           input ".edit-form-submit.edit-form-submit--primary.js-save", "type": "submit", "value": "Save"
           input ".edit-form-submit.js-cancel", "type": "submit", "value": "Cancel"
       p ".footer", ->
-        text "This is One Word Wiki, a wiki with only one word to edit. Created by "
+        text "Edit This Word is a page with one word that anyone can edit. Created by "
         a "href": "http://bobbygrace.info", "Bobby Grace"
         text "."
 
