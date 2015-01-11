@@ -20,9 +20,6 @@
     "backbone": "~1.1.2",
     "body-parser": "~1.10.0",
     "st": "~0.5.2",
-    "sqlite3": "~3.0.4",
-    "knex": "~0.7.3",
-    "bookshelf": "~0.7.9",
     "socket.io-client": "~1.2.1",
     "socket.io": "~1.2.1"
   }
