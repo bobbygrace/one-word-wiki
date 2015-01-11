@@ -3,7 +3,7 @@ Backbone = require 'backbone'
 Backbone.$ = $
 _ = require 'underscore'
 validateInput = require "../../shared/coffee/validator.coffee"
-{ render, div, form, input, text, p, span, a } = require 'teacup'
+{ render, div, form, input, text, p, span, a, raw } = require 'teacup'
 socket = require('socket.io-client')("http://localhost:8080")
 
 class AppView extends Backbone.View
@@ -26,7 +26,8 @@ class AppView extends Backbone.View
 
     html = render ->
       div ".js-show-word", ->
-        p ".word.js-word"
+        p ".word.js-word", ->
+          raw "&nbsp;"
         a ".edit-button.js-edit", "href": "#", "Edit"
       div ".hidden.js-hide-word", ->
         form ".js-form", ->

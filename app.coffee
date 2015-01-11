@@ -5,66 +5,33 @@ st = require 'st'
 app = express()
 http = require('http').Server(app)
 io = require('socket.io')(http)
-validateInput = require "./src/shared/coffee/validator.coffee"
+validateInput = require './src/shared/coffee/validator.coffee'
+fs = require 'fs'
 
 app.use bodyParser.json()
-
-dbFile = path.join __dirname, "db.sqlite"
-dbConfig = {
-  client: 'sqlite',
-  connection: {
-    filename: dbFile
-  }
-}
-knex = require('knex')(dbConfig)
-bookshelf = require('bookshelf')(knex)
-
-
-# Create a schema, if needed
-
-createTable = ->
-  bookshelf.knex.schema.createTable "Words", (table) ->
-    table.increments "id"
-    table.string "dateAdded"
-    table.string "word"
-
-bookshelf.knex.schema.hasTable("Words").then (exists) ->
-  if !exists
-    createTable()
 
 
 # Sockets
 
-io.on "connection", (socket) ->
+io.on 'connection', (socket) ->
 
-  socket.on "word change", (word) ->
-    io.emit "word change", word
-
-
-# Models
-
-Entry = bookshelf.Model.extend
-  tableName: "Words"
-
-Words = bookshelf.Collection.extend
-  model: Entry
-
-words = new Words
-words.fetch()
+  socket.on 'word change', (word) ->
+    io.emit 'word change', word
 
 
 # Some routes
 
-app.get "/word", (req, res, next) ->
-  word = words.models[words.length - 1]
-  res.send(word)
+wordFile = './word.txt'
 
-app.post "/word", (req, res, next) ->
+app.get '/word', (req, res, next) ->
+  fs.readFile wordFile, 'utf8', (err, data) =>
+    word = data
+    res.send(word)
+
+app.post '/word', (req, res, next) ->
   body = req.body
   word = validateInput(body.word).output
-  dateAdded = (new Date()).toJSON()
-  word = new Entry({word, dateAdded})
-  words.create(word)
+  fs.writeFile wordFile, word, 'utf8'
 
 
 # Static Content
@@ -72,7 +39,7 @@ app.post "/word", (req, res, next) ->
 mount = st
   path: __dirname + '/public'
   url: '/'
-  index: "index.html"
+  index: 'index.html'
 
 app.use(mount)
 

@@ -2,6 +2,7 @@ $ = require 'zeptojs'
 Backbone = require 'backbone'
 Backbone.$ = $
 socket = require('socket.io-client')("http://localhost:8080")
+track = require './tracking.coffee'
 
 class EntryModel extends Backbone.Model
 
@@ -9,7 +10,7 @@ class EntryModel extends Backbone.Model
     $.ajax
       url: '/word'
       success: (data, status, xhr) =>
-        word = data.word
+        word = data
         @setWord(word)
       error: (err) =>
 
@@ -19,6 +20,8 @@ class EntryModel extends Backbone.Model
       url: '/word'
       data: JSON.stringify({ word })
       contentType: 'application/json'
+
+    track('Word', word)
 
     socket.emit("word change", word)
 
