@@ -41,7 +41,7 @@ class AppView extends Backbone.View
           input ".edit-form-submit.edit-form-submit--primary.js-save", "type": "submit", "value": "Save"
           input ".edit-form-submit.js-cancel", "type": "submit", "value": "Cancel"
       p ".footer", ->
-        text "Edit This Word is a web page with one word that anyone can edit. Created by "
+        text "OneWord.Wiki is a web page with one word that anyone can edit. Created by "
         a "href": "http://bobbygrace.info", "Bobby Grace"
         text "."
 
@@ -51,7 +51,7 @@ class AppView extends Backbone.View
     @
 
   renderWord: ->
-    document.title = "#{@model.get("word")} » Edit This Word"
+    document.title = "#{@model.get("word")} » OneWord.Wiki"
     @$(".js-word").text @model.get("word")
     @
 
