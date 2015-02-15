@@ -1,7 +1,7 @@
 $ = require 'zeptojs'
 Backbone = require 'backbone'
 Backbone.$ = $
-socket = require('socket.io-client')("http://localhost:8080")
+socket = require('socket.io-client')("http://oneword.wiki/")
 track = require './tracking.coffee'
 
 class EntryModel extends Backbone.Model
