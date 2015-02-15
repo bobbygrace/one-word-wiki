@@ -94,6 +94,9 @@ class AppView extends Backbone.View
     inputValue = @$(".js-input").val()
     validated = validateInput(inputValue)
 
+    if validated.errorEmptyWord
+      return false
+
     @model.saveWord(validated.output)
     @$(".js-input").val("")
     @fEditing = false

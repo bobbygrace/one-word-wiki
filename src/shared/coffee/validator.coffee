@@ -6,6 +6,7 @@ validateInput = (input) ->
   punctuationlessInput = input.replace(pattern," ")
   split = _.compact(punctuationlessInput.trim().split(" "))
   output = split?[0] ? ""
+  output = output.trim()
 
   errorInvalidCharacters = pattern.test(input)
   errorTooManyWords = split.length > 1

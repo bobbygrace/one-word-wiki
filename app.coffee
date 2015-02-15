@@ -30,7 +30,9 @@ app.get '/word', (req, res, next) ->
 
 app.post '/word', (req, res, next) ->
   body = req.body
-  word = validateInput(body.word).output
+  validatedObj = validateInput(body.word)
+  return if validatedObj.errorEmptyWord
+  word = validatedObj.output
   fs.writeFile wordFile, word, 'utf8'
 
 
