@@ -4,7 +4,7 @@ Backbone.$ = $
 _ = require 'underscore'
 validateInput = require "../../shared/coffee/validator.coffee"
 { render, div, form, input, text, p, span, a, raw } = require 'teacup'
-socket = require('socket.io-client')("http://localhost:8080")
+socket = require('socket.io-client')("http://oneword.wiki/")
 
 class AppView extends Backbone.View
 
