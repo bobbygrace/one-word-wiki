@@ -104,7 +104,6 @@ a {
 
 .container {
   margin: 3em auto 4em;
-  max-width: 900px;
   padding: 2em;
   text-align: center;
 }
@@ -117,6 +116,7 @@ a {
   font-size: 2em;
   line-height: 2em;
   margin: 0 0 .5em;
+  word-wrap: break-word;
 }
 
   .edit-button {
@@ -191,16 +191,39 @@ a {
 
 .footer {
   box-sizing: border-box;
-  color: hsl(0, 0%, 55%);
+  overflow: auto;
   padding: 2em 1em;
 }
 
   .footer a {
-    color: hsl(220, 20%, 55%);
+    color: hsl(220, 50%, 50%);
   }
 
   .footer a:hover {
-    color: hsl(220, 10%, 40%);
+    color: hsl(220, 50%, 30%);
+  }
+
+  .footer-expanded {
+    display: none;
+    margin: 0 auto;
+    max-width: 700px;
+    text-align: left;
+  }
+
+
+  /* State */
+
+  .footer.is-expanded {
+    background: #fff;
+  }
+
+  .footer.is-expanded .footer-expanded {
+    display: block;
+    z-index: 2;
+  }
+
+  .footer.is-expanded .footer-collapsed {
+    display: none;
   }
 
 
@@ -311,6 +334,10 @@ a {
     position: fixed;
     right: 0;
     width: 100%;
+  }
+
+  .footer.is-expanded {
+    top: 0;
   }
 
 }

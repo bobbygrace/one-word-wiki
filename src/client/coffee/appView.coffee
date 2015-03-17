@@ -3,17 +3,19 @@ Backbone = require 'backbone'
 Backbone.$ = $
 _ = require 'underscore'
 validateInput = require "../../shared/coffee/validator.coffee"
-{ render, div, form, input, text, p, span, a, raw } = require 'teacup'
+{ render, div, form, input, text, ul, li, p, strong, span, a, raw } = require 'teacup'
 socket = require('socket.io-client')("http://oneword.wiki/")
 
 class AppView extends Backbone.View
 
   events:
-    "click .js-edit": "edit"
-    "submit .js-form": "save"
-    "click .js-save": "save"
-    "click .js-cancel": "cancel"
-    "keyup .js-input": "keyupEvent"
+    'click .js-edit': 'edit'
+    'submit .js-form': 'save'
+    'click .js-save': 'save'
+    'click .js-cancel': 'cancel'
+    'keyup .js-input': 'keyupEvent'
+    'click .js-expand-what': 'expandWhat'
+    'click .js-collapse-what': 'collapseWhat'
 
   initialize: ->
     @fEditing = false
@@ -40,15 +42,52 @@ class AppView extends Backbone.View
             text "”."
           input ".edit-form-submit.edit-form-submit--primary.js-save", "type": "submit", "value": "Save"
           input ".edit-form-submit.js-cancel", "type": "submit", "value": "Cancel"
-      p ".footer", ->
-        text "OneWord.Wiki is a web page with one word that anyone can edit. Created by "
-        a "href": "http://bobbygrace.info", "Bobby Grace"
-        text "."
+      div ".footer.js-footer", ->
+        div ".footer-collapsed", ->
+          p ->
+            a "class": "js-expand-what", "href": "#", "What is this?"
+        div ".footer-expanded", ->
+          p "One Word Wiki is a web page with one word that anyone can edit."
+          p "Just click the edit button, write a new word, and save it. Everyone will be able to see the new word and anyone can come along and change it. If someone changes the word while you’re on the page, the word will update in real time. No need to refresh."
+          p "No word will be censored or edited in any way except according to the three following rules:"
+          ul ->
+            li ->
+              p ->
+                text "The word "
+                strong "can’t be empty"
+                text "."
+            li ->
+              p ->
+                text "The word "
+                strong "can’t have spaces"
+                text ". If you have any spaces, it will take the word before the first space."
+            li ->
+              p ->
+                text "The word "
+                strong "can’t have any punctuation"
+                text " except hyphens. If there is other punctuation, it will take the word before the first punctuation mark."
+          p "All changes are anonymous. There is no way to make an account or give an email address. The site doesn’t care who you are. However, the site will be anonymously tracking changes to the word so that it can be analyzed for trends. It will not track IP addresses or attempt to identify individuals."
+          p ->
+            text "This website was made by "
+            a "href": "http://bobbygrace.info", "Bobby Grace"
+            text "."
+          p ->
+            a "class": "js-collapse-what", "href": "#", "Got it. Hide this."
 
     @$el.html html
     @model.fetchWord()
 
     @
+
+  expandWhat: (e) ->
+    e.preventDefault()
+    @$('.js-footer').addClass('is-expanded')
+    false
+
+  collapseWhat: (e) ->
+    e.preventDefault()
+    @$('.js-footer').removeClass('is-expanded')
+    false
 
   renderWord: ->
     document.title = "#{@model.get("word")} » OneWord.Wiki"
