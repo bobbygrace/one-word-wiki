@@ -36,7 +36,7 @@ class AppView extends Backbone.View
           input ".edit-form-text.js-input", "type": "text"
           p ".error.hidden.js-error-invalid", ->
             span ".js-error-too-many-words.hidden", "Only one word is allowed. "
-            span ".js-error-invalid-characters.hidden", "No spaces or punctuation (except hypens) are accepted. "
+            span ".js-error-invalid-characters.hidden", "No spaces or punctuation (except hyphens) are accepted. "
             text "Your word will be “"
             span ".js-validated-output"
             text "”."
